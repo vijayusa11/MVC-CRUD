@@ -1,0 +1,54 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="WebAppModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="dbl_category">
+    <Key>
+      <PropertyRef Name="CategoryId" />
+    </Key>
+    <Property Name="CategoryId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Description" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="CategoryName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="dbl_products" Relationship="WebAppModel.FK_dbl_products_dbl_category" FromRole="dbl_category" ToRole="dbl_products" />
+  </EntityType>
+  <EntityType Name="dbl_products">
+    <Key>
+      <PropertyRef Name="ProductId" />
+    </Key>
+    <Property Name="ProductId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ProductName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Color" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="CategoryId" Type="Int32" />
+    <NavigationProperty Name="dbl_category" Relationship="WebAppModel.FK_dbl_products_dbl_category" FromRole="dbl_products" ToRole="dbl_category" />
+  </EntityType>
+  <EntityContainer Name="WebAppEntities1" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="dbl_category" EntityType="Self.dbl_category" />
+    <EntitySet Name="dbl_products" EntityType="Self.dbl_products" />
+    <EntitySet Name="sysdiagrams" EntityType="WebAppModel.sysdiagram" />
+    <AssociationSet Name="FK_dbl_products_dbl_category" Association="WebAppModel.FK_dbl_products_dbl_category">
+      <End Role="dbl_category" EntitySet="dbl_category" />
+      <End Role="dbl_products" EntitySet="dbl_products" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="sysdiagram">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <Association Name="FK_dbl_products_dbl_category">
+    <End Type="WebAppModel.dbl_category" Role="dbl_category" Multiplicity="0..1" />
+    <End Type="WebAppModel.dbl_products" Role="dbl_products" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="dbl_category">
+        <PropertyRef Name="CategoryId" />
+      </Principal>
+      <Dependent Role="dbl_products">
+        <PropertyRef Name="CategoryId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

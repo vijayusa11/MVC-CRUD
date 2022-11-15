@@ -1,0 +1,74 @@
+﻿@model dbl_category
+
+
+@{
+    ViewBag.Title = "Create";
+}
+
+@*
+        <form method="post" action="/Home/Create">
+                <div class="form-group row">
+                    <label for="inputEmail3" class="col-sm-2 col-form-label">Name</label>
+                    <div class="col-sm-4">
+                        <input type="text" class="form-control" name="name" placeholder="Enter Name">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="inputPassword3" class="col-sm-2 col-form-label">Description</label>
+                    <div class="col-sm-4">
+                        <input type="password" class="form-control" name="desc" placeholder="Enter Description">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-sm-4">
+                        <button type="submit" class="btn btn-primary">Sign in</button>
+                    </div>
+                </div>
+            </form>
+
+    @using (Html.BeginForm("create", "Home", FormMethod.Post))
+    {
+        <div class="form-group">
+
+            @Html.Label("Name", new { @class = "col-sm-2 col-form-label" })
+            <div class="col-sm-4">
+                @Html.TextBox("name", null, new { @class = "form-control", @PlaceHolder = "Enter Name" })
+                <br />
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.Label("Description", new { @class = "col-sm-2 col-form-label" })
+            <div class="col-sm-4">
+                @Html.TextBox("desc", null, new { @class = "form-control", @PlaceHolder = "Enter Description" })
+                <br />
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-sm-4">
+                <button type="submit" class="btn btn-primary">Sign in</button>
+            </div>
+        </div>
+    }
+*@
+
+@using (Html.BeginForm("Create", "Home", FormMethod.Post, new { @class = "form-Horizontal" }))
+{
+    <div class="form-group">
+        @Html.LabelFor(model => model.Name, new { @class = "col-md-2 text-right" })
+        <div class="col-md-4">
+            @Html.TextBoxFor(model => model.Name, new { @class = "form-control", @placeholder = "Enter your Name"})
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.Description, new { @class = "col-md-2 text-right" })
+        <div class="col-md-4">
+            @Html.TextBoxFor(model => model.Description, new { @class = "form-control", @PlaceHolder = "Enter Description"})
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Create" class="btn btn-primary" />
+        </div>
+    </div>
+
+}
